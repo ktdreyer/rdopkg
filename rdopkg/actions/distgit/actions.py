@@ -511,8 +511,11 @@ def check_new_patches(version, local_patches_branch,
 
     for hash, subj, bzs in patches:
         new_patch = True
-        for _, old_hash, _ in old_patches:
+        for _, old_hash, old_subj in old_patches:
             if helpers.is_same_hash(hash, old_hash):
+                new_patch = False
+                break
+            if subj == old_subj:
                 new_patch = False
                 break
         if new_patch:
